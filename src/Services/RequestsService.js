@@ -39,13 +39,11 @@ export async function deleteRequests(id){
     });
 }
 export async function answerRequest(id){
-    console.log("answerRequest")
     return openDb().then(db=>{
         return db.run('UPDATE Requests SET status=? WHERE id=?', ["IN ATTENDANCE", id])
     })
 }
 export async function finalizeRequest(id){
-    console.log("answerRequest")
     return openDb().then(db=>{
         return db.run('UPDATE Requests SET status=?, conclude=? WHERE id=?', ["FINISHED", new Date().toLocaleString(),id])
     })

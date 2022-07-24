@@ -3,14 +3,11 @@ import { openDb } from './configDB.js';
 import { createTableEmployees, insertEmployees, updateEmployees, selectEmployees, selectEmployee, deleteEmployees, selectEmail } from './Services/EmployeesService.js';
 import { createTableRequests, insertRequests, updateRequests, selectRequests, selectRequest, deleteRequests, answerRequest, finalizeRequest } from './Services/RequestsService.js';
 import cors from 'cors'
-
-
 import express from 'express';
+
 const app = express();
 app.use(cors())
 app.use(express.json());
-
-
 
 createTableEmployees();
 createTableRequests();
@@ -105,7 +102,6 @@ app.delete('/requests', async function(req, res){
 //LOGIN
 
 app.post('/login', async function(req, res){
-    console.log(req.body.password)
     let employees = await selectEmail(req.body.email);
     if(!employees){
         return res.status(404).json("employe not exist")
@@ -113,7 +109,6 @@ app.post('/login', async function(req, res){
     if(employees.password == req.body.password){
         res.status(202).json(employees)
     }else{
-        console.log("INCORRECT PASSWORD")
         res.status(403).json("INCORRECT PASSWORD")
     }
 
